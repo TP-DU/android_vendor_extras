@@ -30,6 +30,7 @@ endif
 
 ifeq ($(BOARD_USES_QTI_HARDWARE),true)
 
+    A_FAMILY := msm7x27a msm7x30 msm8660 msm8960
     B_FAMILY := msm8226 msm8610 msm8974
     B64_FAMILY := msm8992 msm8994
     BR_FAMILY := msm8909 msm8916
@@ -62,6 +63,9 @@ ifeq ($(BOARD_USES_QTI_HARDWARE),true)
     # List of targets that use master side content protection
     MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660
 
+    ifeq ($(call is-board-platform-in-list, $(A_FAMILY)),true)
+        QCOM_HARDWARE_VARIANT := msm8960
+    else
     ifeq ($(call is-board-platform-in-list, $(B_FAMILY)),true)
         MSM_VIDC_TARGET_LIST := $(B_FAMILY)
         QCOM_HARDWARE_VARIANT := msm8974
@@ -80,6 +84,7 @@ ifeq ($(BOARD_USES_QTI_HARDWARE),true)
     else
         MSM_VIDC_TARGET_LIST := $(TARGET_BOARD_PLATFORM)
         QCOM_HARDWARE_VARIANT := $(TARGET_BOARD_PLATFORM)
+    endif
     endif
     endif
     endif
